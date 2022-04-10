@@ -72,7 +72,7 @@ var app = new Vue({
 
 ### React
 
-react官网，动画效果列出react-transition-group、react-motion和react-spring等示例。
+react官网，动画效果推荐了react-transition-group、react-motion和react-spring库。
 
 使用react-spring来实现
 
@@ -127,8 +127,7 @@ display: 不占据页面空间的不可见元素。 属性会破坏transition动
 
 ?> transition  
 例如从 opacity:0 到 opacity:1的变化，用时1s，那么transition会计算在这1s内的每一帧画面中元素该有的 opacity值，从而完成过渡效果。  
-从visibility:hidden到 visibility:visible的过程中。因为没办法计算过渡阶段没帧的值，所以元素就直接显示出来了，但内在的过渡操作依旧在元素显示出来后显示了1s   
-而从 visibility:visible 到 visibility:hidden，元素在视觉上看起来等待的1s内，实际在内部已经在进行transition过渡操作，只不过还是因为没办法计算值，所以到了过渡阶段的最后一刻时，就直接将元素设置为结束状态，也就是隐藏了。
+而从visibility:hidden到 visibility:visible的过程中。因为没办法计算过渡阶段没帧的值，所以元素就直接显示出来了，但内在的过渡操作依旧在元素显示出来后显示了1s。从 visibility:visible 到 visibility:hidden，元素在视觉上看起来等待的1s内，实际在内部已经在进行transition过渡操作，只不过还是因为没办法计算值，所以到了过渡阶段的最后一刻时，就直接将元素设置为结束状态，也就是隐藏了。
 
 ```css
 .dv {
