@@ -1,2 +1,9 @@
 - css
   - [元素显隐切换过渡效果](css/display.md)
+- mysql
+  - 入门基础
+    - [数据库概述](mysql/base/overview.md)
+    - [常用命令](mysql/base/command.md)
+    - [演示数据结构](mysql/base/demo.md)
+    - [简单的查询](mysql/base/select.md)
+    - [条件查询](mysql/base/conditions-select.md)
