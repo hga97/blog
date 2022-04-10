@@ -1,2 +1,2 @@
 - css
-  - [元素显隐切换过渡效果](css/guide.md)
+  - [元素显隐切换过渡效果](css/display.md)
