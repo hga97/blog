@@ -10,3 +10,5 @@
 - react
   - jira项目实战
     - [项目初始化](react/jira/init.md)
+- 重学js
+  - [作用域](js/scope.md)
