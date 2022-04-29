@@ -12,4 +12,5 @@
     - [项目初始化](react/jira/init.md)
 - 重学js
   - [作用域](js/scope.md)
-  - [执行上下文](js/execute.md)
+  - [执行上下文栈](js/execute.md)
+  - [变量对象](js/variable.md)
