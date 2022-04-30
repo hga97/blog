@@ -15,4 +15,5 @@
     - [简单的查询](mysql/base/select.md)
     - [条件查询](mysql/base/conditions-select.md)
     - [排序数据](mysql/base/sort.md)
+    - [单行处理函数](mysql/base/single-fn.md)
 
