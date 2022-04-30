@@ -1,5 +1,12 @@
 - css
   - [元素显隐切换过渡效果](css/display.md)
+- 重学js
+  - [作用域](js/scope.md)
+  - [执行上下文栈](js/execute.md)
+  - [变量对象](js/variable.md)
+- react
+  - jira项目实战
+    - [项目初始化](react/jira/init.md)
 - mysql
   - 入门基础
     - [数据库概述](mysql/base/overview.md)
@@ -7,10 +14,5 @@
     - [演示数据结构](mysql/base/demo.md)
     - [简单的查询](mysql/base/select.md)
     - [条件查询](mysql/base/conditions-select.md)
-- react
-  - jira项目实战
-    - [项目初始化](react/jira/init.md)
-- 重学js
-  - [作用域](js/scope.md)
-  - [执行上下文栈](js/execute.md)
-  - [变量对象](js/variable.md)
+    - [排序数据](mysql/base/sort.md)
+

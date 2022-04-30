@@ -1,3 +1,9 @@
+### mysql连接
+
+```bash
+mysql -u root -p
+```
+
 ### 查看mysql版本
 
 ```bash
