@@ -18,4 +18,5 @@
     - [排序数据](mysql/base/sort.md)
     - [单行处理函数](mysql/base/single-fn.md)
     - [分组函数](mysql/base/group-fn.md)
+    - [分组查询](mysql/base/group-select.md)
 
