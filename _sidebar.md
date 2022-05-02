@@ -8,8 +8,8 @@
   - jira项目实战
     - [项目初始化](react/jira/init.md)
     - [项目列表](react/jira/list.md)
-- mysql
-  - 入门基础
+- 计算机科学与技术
+  - 数据库
     - [数据库概述](mysql/base/overview.md)
     - [常用命令](mysql/base/command.md)
     - [演示数据结构](mysql/base/demo.md)
@@ -17,4 +17,5 @@
     - [条件查询](mysql/base/conditions-select.md)
     - [排序数据](mysql/base/sort.md)
     - [单行处理函数](mysql/base/single-fn.md)
+    - [分组函数](mysql/base/group-fn.md)
 

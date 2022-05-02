@@ -2,6 +2,8 @@
 
 ```bash
 mysql -u root -p
+
+mysql -uroot -p123456
 ```
 
 ### 查看mysql版本
