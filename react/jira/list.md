@@ -73,6 +73,45 @@ endPoint += `?${qs.stringify(data)}`;
 
 ### useEffect 
 
-### 拷贝对象
+在 React 组件中有两种常见副作用操作：需要清除的和不需要清除的。  
 
-### useMount和useDebounce
+**无需清除的 effect**  
+在 React 更新 DOM 之后运行一些额外的代码。比如发送网络请求，手动变更 DOM，记录日志，这些都是常见的无需清除的操作。  
+
+useEffect 做了什么:  React 组件需要在渲染后执行某些操作。React 会保存你传递的函数（我们将它称之为 “effect”），并且在执行 DOM 更新之后调用它。  
+useEffect 会在每次渲染后都执行吗？： 默认情况下，它在第一次渲染之后和每次更新之后都会执行。useEffect传入第二个可选参数, 仅在可选参数更改时更新。  
+
+```js
+// 仅执行一次
+export const useMount = (callback: () => void) => {
+  useEffect(() => {
+    callback();
+  }, []);
+};
+```
+
+**需要清除**
+
+一些副作用是需要清除的。例如订阅外部数据源。这种情况下，清除工作是非常重要的，可以防止引起内存泄露！  
+
+为什么要在 effect 中返回一个函数？: 这是 effect 可选的清除机制。每个 effect 都可以返回一个清除函数。  
+React 何时清除 effect: effect 在每次渲染的时候都会执行。这就是为什么 React 会在执行当前 effect 之前对上一个 effect 进行清除。  
+
+```js
+export const useDebounce = <V>(value: V, delay: number) => {
+  // 状态（响应式：页面跟着更改）
+  const [debounceValue, setDebounceValue] = useState(value);
+  useEffect(() => {
+    const time = setTimeout(() => {
+      console.error("debounce---");
+      setDebounceValue(value);
+    }, delay);
+
+    // 每次在上一个useEffect处理完以后再运行
+    return () => {
+      clearTimeout(time);
+    };
+  }, [value, delay]);
+  return debounceValue;
+};
+```
