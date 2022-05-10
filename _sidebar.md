@@ -19,4 +19,5 @@
     - [单行处理函数](mysql/base/single-fn.md)
     - [分组函数](mysql/base/group-fn.md)
     - [分组查询](mysql/base/group-select.md)
+    - [连接查询](mysql/base/connect-select.md)
 
