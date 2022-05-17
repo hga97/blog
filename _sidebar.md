@@ -4,6 +4,7 @@
   - [作用域](js/scope.md)
   - [执行上下文栈](js/execute.md)
   - [变量对象](js/variable.md)
+  - [作用域链](js/scope-chain.md)
 - react
   - jira项目实战
     - [项目初始化](react/jira/init.md)
