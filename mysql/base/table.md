@@ -1,15 +1,13 @@
 ### 创建表
 
-1、语法格式
+#### 语法格式
 
 ```bash
-
 create table tableName (
     columnName dataType(length),
     ...
     columnName dataType(length)
 )
-
 
 set character_set_results = 'gbk';
 show variables like '%char%';
@@ -22,9 +20,9 @@ show variables like '%char%';
 **字段长度限制**  
 **字段约束**  
 
-2、mysql常见数据类型
+#### mysql常见数据类型
 
-char： 定长字符串，存储空间大小固定，适合作为 主键或外键  
+char： 定长字符串，存储空间大小固定，适合作为主键或外键  
 varchar：变长字符串，存储空间等于实际数据空间  
 double：数值型  
 float：数值型  
@@ -34,10 +32,9 @@ date：日期型
 blob：二进制大对象  
 clob：字符大对象  
 
-3、建立学生信息表，字段包括（学号、姓名、性别、出生日期、email、班级标识）
+#### 建立学生信息表，字段包括（学号、姓名、性别、出生日期、email、班级标识）
 
 ```bash
-
 create table t_student (
     student_id     int(10),
     student_name   varchar(20),
@@ -46,7 +43,6 @@ create table t_student (
     email          varchar(30),
     class_id       int(3)
 )
-
 
 desc t_student;
 +--------------+-------------+------+-----+---------+-------+
@@ -57,15 +53,14 @@ desc t_student;
 | sex          | char(2)     | YES  |     | NULL    |       |
 | birthday     | date        | YES  |     | NULL    |       |
 | email        | varchar(30) | YES  |     | NULL    |       |
-| classes_id     | int         | YES  |     | NULL    |       |
+| classes_id   | int         | YES  |     | NULL    |       |
 +--------------+-------------+------+-----+---------+-------+
 
 ```
 
-4、向t_student表中加入数据
+#### 向t_student表中加入数据
 
 ```bash
-
 insert into t_student(student_id, student_name, sex, birthday, email, classes_id) values(1001,
 'hhh', 'm', '1988-01-01', 'qqq@163.com', 10);
 
@@ -79,7 +74,7 @@ select * from t_student;
 ```
 
 
-5、向 t_student 表中加入数据(使用默认值)
+#### 向 t_student 表中加入数据(使用默认值)
 
 ```bash
 
@@ -107,11 +102,11 @@ select * from t_student;
 ### 增加/删除/修改表结构
 采用alter table 来增加/删除/修改表结构，不影响表中的数据
 
-1、添加表字段
-
-```bash
+#### 添加表字段
 
 需求发生改变，需要向 t_student 中加入联系电话字段，字段名称为:contatct_tel 类型为 varchar(40)
+
+```bash
 alter table t_student add contact_tel varchar(40);
 
 +--------------+-------------+------+-----+---------+-------+
@@ -128,11 +123,11 @@ alter table t_student add contact_tel varchar(40);
 
 ```
 
-2、修改字段
-
-```bash
+#### 修改字段
 
 student_name 无法满足需求，长度需要更改为 100
+
+```bash
 alter table t_student modify student_name varchar(100) ;
 
 +--------------+--------------+------+-----+---------+-------+
@@ -146,8 +141,11 @@ alter table t_student modify student_name varchar(100) ;
 | classes_id   | int          | YES  |     | NULL    |       |
 | contact_tel  | varchar(40)  | YES  |     | NULL    |       |
 +--------------+--------------+------+-----+---------+-------+
+```
 
 更改字段（sex -> gender）
+
+```bash
 alter table t_student change sex gender char(2) not null;
 
 +--------------+--------------+------+-----+---------+-------+
@@ -164,11 +162,11 @@ alter table t_student change sex gender char(2) not null;
 
 ```
 
-3、删除字段
-
-```bash
+#### 删除字段
 
 删除联系电话字段
+
+```bash
 alter table t_student drop contact_tel;
 
 +--------------+--------------+------+-----+---------+-------+
@@ -186,15 +184,15 @@ alter table t_student drop contact_tel;
 
 ### 添加、修改和删除记录
 
-添加、修改和删出都属于 DML，主要包含的语句:insert、update、delete
+添加、修改和删除都属于 DML，主要包含的语句:insert、update、delete
 
-1、insert
+#### insert
 
-1.1、insert 语法格式
+1、insert 语法格式
 
 insert into 表名(字段,...) values (值,...)
 
-1.2、指定字段的插入(建议使用此种方式)
+2、指定字段的插入(建议使用此种方式)
     
 ```bash
 
@@ -202,7 +200,7 @@ insert into emp(empno,ename,job,mgr,hiredate,sal, comm,deptno) values(9999,'zhan
 
 ```
 
-1.3、表复制
+3、表复制
 
 ```bash
 
@@ -210,7 +208,7 @@ create table emp_bak as select empno,ename,sal from emp;
 
 ```
 
-1.4 查询的数据直接放到已经存在的表中，可以使用条件
+4 查询的数据直接放到已经存在的表中，可以使用条件
 
 ```bash
 
@@ -218,14 +216,15 @@ insert into emp_bak select * from emp where sal=3000;
 
 ```
 
-2、update
+#### update
 可以修改数据，可以根据条件修改数据
 
-2.1、语法格式
+1、语法格式
 
 update 表名 set 字段名称 1=需要修改的值 1, 字段名称 2=需要修改的值 2 where ...
 
-2.2、修改学生email
+2、修改学生email
+
 ```bash
 update t_student set email = '123@163.com' where student_id = 1002;
 
@@ -236,13 +235,14 @@ update t_student set email = '123@163.com' where student_id = 1002;
 +------------+--------------+--------+------------+-------------+------------+
 ```
 
-3、delete
+#### delete
 可以删除数据，可以根据条件删除数据
 
-3.1、语法格式
+1、语法格式
+
 delete from 表名 where ...
 
-3.2、删除email为'qqq@163.com'的员工
+2、删除email为'qqq@163.com'的员工
 
 ```bash
 delete from t_student where email = 'qqq@163.com';
@@ -256,13 +256,13 @@ delete from t_student where email = 'qqq@163.com';
 
 ### 创建表加入约束
 
-常见的约束：
-非空约束，not null
-唯一约束，unique
-主键约束，primary key
-外键约束，foreign key
+常见的约束：  
+非空约束，not null  
+唯一约束，unique  
+主键约束，primary key  
+外键约束，foreign key  
 
-1、非空约束，not null
+#### 非空约束，not null
 
 非空约束，针对某个字段设置其值不为空，如: 学生的姓名不能为空
 
@@ -272,7 +272,7 @@ student_name varchar(20) not null
 Field 'student_name' doesn't have a default value
 ```
 
-2、唯一约束，unique
+#### 唯一约束，unique
 
 唯一性约束，它可以使某个字段的值不能重复，如:email 不能重复
 
@@ -297,15 +297,15 @@ alter table t_student add constraint uc_PersonID UNIQUE(student_name,email);
 
 ```
 
-3、主键约束，primary key
+#### 主键约束，primary key
 
 **每个表应该具有主键，主键可以标识记录的唯一性**  
 主键分为单一主键和复合(联合)主键，单一主键是由一个字段构成的，复合(联合)主键是由多个字段构成的  
 
 ```bash
-
 create table t_student(
-    student_id int(10) primary key,/*列级约束*/ student_name varchar(20) not null,
+    student_id int(10) primary key,/*列级约束*/ 
+    student_name varchar(20) not null,
     sex char(2) default 'm',
     birthday date,
     email varchar(30) ,
@@ -314,12 +314,20 @@ create table t_student(
 
 insert into t_student(student_id, student_name, birthday, email, classes_id) values (1001, 'lisi', '1988-01-01', '123@163.com', 10);
 
-Duplicate entry '1001' for key 't_student.PRIMARY'
+select * from t_student;
+
++------------+--------------+------+------------+-------------+------------+
+| student_id | student_name | sex  | birthday   | email       | classes_id |
++------------+--------------+------+------------+-------------+------------+
+|       1001 | zhangsan     | m    | 1988-01-01 | qqq@163.com |         10 |
++------------+--------------+------+------------+-------------+------------+
+
 insert into t_student(student_id, student_name, birthday, email, classes_id) values (1001, 'lisi', '1988-01-01', '123@163.com', 10);
+Duplicate entry '1001' for key 't_student.PRIMARY'
 ```
 
 
-4、外键约束，foreign key
+#### 外键约束，foreign key
 
 外键主要是维护表之间的关系的，主要是为了保证参照完整性  
 如果表中的某个字段为外键字段，那么该字段的值必须来源于参照的表的主键  
@@ -327,7 +335,7 @@ insert into t_student(student_id, student_name, birthday, email, classes_id) val
 
 建立学生和班级表之间的连接
 
-4.1、首先建立班级表 t_classes
+1、首先建立班级表 t_classes
 
 ```bash
 drop table if exists t_classes;
@@ -339,7 +347,7 @@ create table t_classes(
 );
 ```
 
-4.2、在t_student中加入外键约束
+2、在t_student中加入外键约束
 
 ```bash
 drop table if exists t_student;
@@ -356,7 +364,7 @@ create table t_student(
 )
 ```
 
-4.3、向 t_student 中加入数据
+3、向 t_student 中加入数据
 ```bash
 insert into t_student(student_id, student_name, sex, birthday, email, classes_id) values(1001, 'zhangsan', 'm', '1988-01-01', 'qqq@163.com', 10);
 
@@ -395,7 +403,7 @@ insert into t_student(student_id, student_name, sex, birthday, email, classes_id
 Column 'classes_id' cannot be null
  ```
 
-4.4、添加数据到班级表，添加数据到学生表，删除班级数据，将会出现如下错误:
+4、添加数据到班级表，添加数据到学生表，删除班级数据，将会出现如下错误:
 
 ```bash
 insert into t_classes(classes_id,classes_name) values (1, '16电子1班');
@@ -413,9 +421,9 @@ Cannot delete or update a parent row: a foreign key constraint fails (`bjpowerno
 ```
  因为子表(t_student)存在一个外键classes_id，它参照了父表(t_classes)中的主键，所以先删除父表，那么将会影响子表的参照完整性，所以正确的做法是，先删除子表中的数据，再删除父表中的数据，采用drop table也不行，必须先drop子表，再drop父表 我们也可以采取以下措施级联删除。
 
-5、级联更新与级联删除
+#### 级联更新与级联删除
 
-5.1 on update cascade
+1、 on update cascade
 
 mysql 对有些约束的修改比较麻烦，所以我们可以先删除，再添加
 
@@ -442,7 +450,7 @@ select * from t_student;
 修改了父表中的数据，但是子表中的数据也会跟着变动。
 ```
 
-5.2 on delete cascade
+2、 on delete cascade
 
 mysql 对有些约束的修改时不支持的，所以我们可以先删除，再添加
 
@@ -489,20 +497,24 @@ create table t_student(
 
 ### 增加/删除/修改表约束
 
-1、删除约束
+#### 删除约束
+
 删除外键约束： alter table 表名 drop foreign key 外键（区分大小写）
 
 删除主键约束： alter table 表名 drop primary key
 
 删除约束： alter table 表名 drop key 约束名称
 
-2、添加约束
+#### 添加约束
+
 添加外键约束：alter table 表名 add constraint 约束名 foreign key(从表字段) references 主表(主键字段)
 
 添加主键约束：alter table 表名 add constraint 约束名 foreign key 表(字段)
 
 添加唯一约束：alter table 表名 add constraint 约束名 unique 表(字段)
 
-3、修改约束，其实就是修改字段
+#### 修改约束，其实就是修改字段
+
 alter table t_student modify student_name varchar(30) unique;
+
 mysql 对有些约束的修改时不支持，所以我们可以先删除，再添加
