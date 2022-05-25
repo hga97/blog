@@ -101,6 +101,7 @@ tsc 会把ts文件编译成一个纯js文件
 ### 报错时仍产出文件
 
 tsc --noEmitOnError hello.ts
+
 报错，hello.js 并不会得到更新
 
 
@@ -130,7 +131,6 @@ greet("Maddison", new Date()); // yes
 记住，我们并不需要总是写类型注解，大部分时候，TypeScript 可以自动推断出类型：
 
 ```ts
-
 let msg = "hello there!";
 // let msg: string
 
@@ -152,7 +152,7 @@ function greet(person, date) {
 greet("Maddison", new Date());
 
 // person 和 date 参数不再有类型注解
-// 模板字符串，即用 ``` 包裹的字符串被转换为使用 + 号连接
+// 模板字符串，即用 `` 包裹的字符串被转换为使用 + 号连接
 ```
 
 类型注解并不是 JavaScript 的一部分。所以并没有任何浏览器或者运行环境可以直接运行 TypeScript 代码。
