@@ -25,4 +25,5 @@
     - [连接查询](mysql/base/connect-select.md)
     - [子查询](mysql/base/subquery.md)
     - [union limit](mysql/base/union-limit.md)
+    - [表](mysql/base/table.md)
 
