@@ -7,6 +7,7 @@
   - [作用域链](js/scope-chain.md)
 - typescript
   - [基础入门](ts/base.md)
+  - [常见类型(上)](ts/type-up.md)
 - react
   - jira项目实战
     - [项目初始化](react/jira/init.md)
