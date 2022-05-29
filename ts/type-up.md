@@ -36,7 +36,7 @@ const n: number = obj;
 
 ```
 
-noImplicitAny
+#### noImplicitAny
 
 如果你没有指定一个类型，TypeScript 也不能从上下文推断出它的类型，编译器就会默认设置为 any 类型。
 

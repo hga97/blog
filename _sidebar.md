@@ -13,6 +13,7 @@
   - jira项目实战
     - [项目初始化](react/jira/init.md)
     - [项目列表](react/jira/list.md)
+    - [项目列表ts化](react/jira/ts.md)
 - 计算机科学与技术
   - 数据库
     - [数据库概述](mysql/base/overview.md)
