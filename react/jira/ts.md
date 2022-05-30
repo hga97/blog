@@ -68,3 +68,15 @@ export const useArray = <T>(initialArray: T[]) => {
   return { value, setValue, add, clear, removeIndex };
 };
 ```
+
+### tsconfig.json
+
+baseUrl: 解析非相对模块的基地址，默认是当前目录。
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+  },
+}
+```
