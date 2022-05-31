@@ -167,12 +167,12 @@ const xiaoMing: Partial<Person> = {}; //可传可不传
 const xiaoMing: Partial<Person> = { name: '22'}; //可传可不传
 const xiaoMing: Partial<Person> = { name: '22', age:1}; //可传可不传
 type PersonKeys = keyof Person; // type PersonKeys = 'name' | 'age'
+// keyof: 取key，联合类型
 
 type Partial<T> = {
     [P in keyof T]?: T[P];
 };
 
-// keyof: 取key，联合类型
 
 ```
 
