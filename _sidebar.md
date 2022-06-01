@@ -17,7 +17,7 @@
     - [jwt、用户认证与异步请求](react/jira/login.md)
     - [css-in-js](react/jira/css-in-js.md)
 - 计算机科学与技术
-  - 数据库
+  - 数据库系统原理
     - [数据库概述](mysql/base/overview.md)
     - [常用命令](mysql/base/command.md)
     - [演示数据结构](mysql/base/demo.md)
@@ -31,4 +31,6 @@
     - [子查询](mysql/base/subquery.md)
     - [union limit](mysql/base/union-limit.md)
     - [表](mysql/base/table.md)
+  - 计算机网络原理
+    - [计算机网络概述](computer-network/overview.md)
 
