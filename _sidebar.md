@@ -33,4 +33,6 @@
     - [表](mysql/base/table.md)
   - 计算机网络原理
     - [计算机网络概述](computer-network/overview.md)
+  - 高等数学(工本)
+    - [空间解析几何与向量代数](maths/one.md)
 
