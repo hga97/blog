@@ -137,7 +137,7 @@ utility type 的用法：用泛型给它传入一个其他类型，然后utility
 
 6、parameters
 
-js typeof runtime
+js typeof runtime  
 ts 静态环境 type http，提取变量
 
 

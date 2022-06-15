@@ -63,6 +63,7 @@ export const Button = styled.button`
 ```
 
 2、缺乏作用域
+
 传统的 css 只有一个全局作用域，一个 class 可以匹配全局的任意元素。
 随着项目成长，css 会变得越来越难以组织。
 
