@@ -10,6 +10,7 @@
   - [基础入门](ts/base.md)
   - [常见类型(上)](ts/type-up.md)
   - [常见类型(下)](ts/type-down.md)
+  - [keyof操作符](ts/keyof.md)
 - react
   - jira项目实战
     - [项目初始化](react/jira/init.md)
@@ -35,6 +36,6 @@
   - 计算机网络原理
     - [计算机网络概述](computer-network/overview.md)
     - [网络应用](computer-network/application.md)
-  - 高等数学(工本)
-    - [空间解析几何与向量代数](maths/one.md)
+  <!-- - 高等数学(工本)
+    - [空间解析几何与向量代数](maths/one.md) -->
 

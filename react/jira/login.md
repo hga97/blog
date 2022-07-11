@@ -135,10 +135,10 @@ type f = string | number;
 
 utility type 的用法：用泛型给它传入一个其他类型，然后utility type对这个类型进行某种操作
 
-6、parameters
+6、Parameters
 
 js typeof runtime  
-ts 静态环境 type http，提取变量
+ts 静态环境 typeof http，提取变量
 
 
 7、Partial和Omit
@@ -167,7 +167,8 @@ const xiaoMing: Partial<Person> = {}; //可传可不传
 const xiaoMing: Partial<Person> = { name: '22'}; //可传可不传
 const xiaoMing: Partial<Person> = { name: '22', age:1}; //可传可不传
 type PersonKeys = keyof Person; // type PersonKeys = 'name' | 'age'
-// keyof: 取key，联合类型
+// keyof: keyof 取 interface 的键，联合类型
+// in: 则可以遍历枚举类型
 
 type Partial<T> = {
     [P in keyof T]?: T[P];
@@ -207,11 +208,16 @@ type Age = Exclude<PersonKeys, "name">;
 
 type Age = "age"
 
+<!-- 
 // 遍历时
 // 为name：不返回
 // 为age：返回age
+-->
 
 type Exclude<T, U> = T extends U ? never : T;
+// 如果 T 是 U 的子类型的话，那么就会返回 never，否则返回 T
+// 换种更加贴近语义的说法其实就是从T 中排除 U
+
 // T:联合类型
 // never：什么都没有 
 
