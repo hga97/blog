@@ -143,7 +143,7 @@ issues讨论：
 确实，变量提升是一个在规范中找不到的术语。变量提升被认为是思考执行上下文（特别是创建和执行阶段）在 JavaScript 中如何工作的一种方式。不过如果直接用变量对象去解释，估计给新手会增加不少的理解成本~
 
 ```js
-console.log(foo); //foo
+console.log(foo); //foo函数
 
 function foo(){
     console.log("foo");
@@ -163,6 +163,7 @@ console.log(foo);
 function foo(){
   console.log("foo");
 };
+console.log(foo);
 // 这次打印结果就是“1”；
 
 // 分解
