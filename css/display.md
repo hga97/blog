@@ -227,8 +227,35 @@ btn.addEventListener("click", () => {
 
 ### transitionend
 
+?> transitionend 事件  
+transitionend 事件会在 CSS transition 结束后触发。 当 transition 完成前移除 transition 时，比如移除 css 的 transition-property 属性，事件将不会被触发，如在 transition 完成前设置 display:none，事件同样不会被触发。
 
+```js
+...
+} else {
+  dv.style.opacity = 0;
+  dv.addEventListener("transitionend", () => {
+    if (Number(dv.style.opacity) === 0) {
+      dv.style.display = "none";
+    }
+  });
+}
+...
+```
 
-<!-- 
+涉及到了 JS 实现的动画，那么其实可以考虑一下 把 setTimeout 换成 requestAnimationFrame。
+
+```js
+...
+if (dvDisplay === "none") {
+    dv.style.display = "block";
+    requestAnimationFrame(() => {
+      dv.style.opacity = 1;
+    });
+} else {
+...
+```
+
+<!--
 https://www.infoq.cn/article/javascript-high-performance-animation-and-page-rendering/
  -->
