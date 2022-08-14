@@ -1,7 +1,7 @@
 - css
   - [元素显隐切换过渡效果](css/display.md)
   - [css模块化方案](css/css-modules.md)
-- 重学js
+- js
   - [作用域](js/scope.md)
   - [执行上下文栈](js/execute.md)
   - [变量对象](js/variable.md)
@@ -18,6 +18,8 @@
     - [项目列表ts化](react/jira/ts.md)
     - [jwt、用户认证与异步请求](react/jira/login.md)
     - [css-in-js](react/jira/css-in-js.md)
+- 工程化
+  - [AST基础](project/ast.md)
 - 计算机科学与技术
   - 数据库系统原理
     - [数据库概述](mysql/base/overview.md)
