@@ -20,6 +20,7 @@
     - [css-in-js](react/jira/css-in-js.md)
 - 工程化
   - [AST基础](project/ast.md)
+  - [webpack-bundle-analyzer](project/analyzer.md)
 - 计算机科学与技术
   - 数据库系统原理
     - [数据库概述](mysql/base/overview.md)
