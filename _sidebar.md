@@ -8,8 +8,7 @@
   - [作用域链](js/scope-chain.md)
 - typescript
   - [基础入门](ts/base.md)
-  - [常见类型(上)](ts/type-up.md)
-  - [常见类型(下)](ts/type-down.md)
+  - [常见类型](ts/type.md)
   - [keyof操作符](ts/keyof.md)
 - react
   - jira项目实战
