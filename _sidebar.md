@@ -9,6 +9,7 @@
 - typescript
   - [基础入门](ts/base.md)
   - [常见类型](ts/type.md)
+  - [类型收窄](ts/narrowing.md)
   - [keyof操作符](ts/keyof.md)
 - react
   - jira项目实战

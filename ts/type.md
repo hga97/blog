@@ -517,7 +517,7 @@ function doSomething(x: string | null) {
 
 ### 非空断言操作符（后缀 !）
 
-ypeScript 提供了一个特殊的语法，可以在不做任何检查的情况下，从类型中移除 null 和 undefined，这就是在任意表达式后面写上 ! ，
+typeScript 提供了一个特殊的语法，可以在不做任何检查的情况下，从类型中移除 null 和 undefined，这就是在任意表达式后面写上 ! ，
 这是一个有效的类型断言，表示它的值不可能是 null 或者 undefined：
 
 ```ts
@@ -546,7 +546,7 @@ const oneHundred: bigint = BigInt(100);
 
 #### symbol
 
-过函数 Symbol()，我们可以创建一个全局唯一的引用：
+通过函数 Symbol()，我们可以创建一个全局唯一的引用：
 
 ```ts
 const firstName = Symbol("name");
