@@ -1,6 +1,4 @@
-### 基础
-
-#### js 动态类型检查
+### 动态类型检查
 
 ```js
 const message = "Hello World!";
