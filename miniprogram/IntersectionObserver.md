@@ -19,23 +19,24 @@
 创建并返回一个 IntersectionObserver 对象实例。在自定义组件或包含自定义组件的页面中，
 应使用 this.createIntersectionObserver([options]) 来代替。
 
-IntersectionObserver.relativeToViewport(Object margins)
+##### IntersectionObserver.relativeToViewport(Object margins)
 
 功能：指定页面显示区域作为参照区域之一  
-Object margins： 用来扩展（或收缩）参照节点布局区域的边界
+参数：Object margins 用来扩展（或收缩）参照节点布局区域的边界
 
 ### 吸顶组件
 
 #### 确定临界点，设置参照区域
 
-临界点：页面显示区 = sticky 内容区域（目标节点的大小一样，单位 px） + 参照区域  
-当上划到 sticky 内容区域时：刚好目标节点跟 sticky 的内容区域重合，相交比例为 0，触发吸顶。（intersectionRatio 为 0）  
-当下划到 sticky 内容区域时：在往下移动的话，刚好跟参照区域相交， 取消吸顶（intersectionRatio > 0）
+##### 页面显示区 = sticky 内容区域（目标节点的大小一样，单位 px） + 参照区域
+
+当上滑到 sticky 内容区域时：刚好目标节点跟 sticky 的内容区域重合，相交比例为 0，触发吸顶。（intersectionRatio 为 0）  
+当下滑到 sticky 内容区域时：刚好目标节点跟参照区域相交，相交比例大于 0， 取消吸顶（intersectionRatio > 0）
 
 #### 吸顶跟取消吸顶
 
-吸顶： isFixed 为 true
-取消吸顶： isFixed
+吸顶： isFixed 为 true  
+取消吸顶： isFixed 为 false
 
 ```wxml
 <view class="sticky-container" style="height: {{height}}rpx">
