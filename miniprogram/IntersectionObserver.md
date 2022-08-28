@@ -33,9 +33,9 @@
 
 #### 确定临界点，设置参照区域
 
-##### 页面显示区 = sticky 内容区域（目标节点的大小一样，单位 px） +  参照区域
+##### 页面显示区 = sticky 内容区域（目标节点的大小一样，单位 px） + 参照区域
 
-当上滑到 sticky 内容区域时：刚好目标节点跟 sticky 的内容区域重合，相交比例为 0，触发吸顶。（intersectionRatio 为 0）  
+当上滑到 sticky 内容区域时：刚好目标节点跟 sticky 的内容区域重合（离开参照区域），相交比例为 0，触发吸顶。（intersectionRatio 为 0）  
 当下滑到 sticky 内容区域时：刚好目标节点跟参照区域相交，相交比例大于 0， 取消吸顶（intersectionRatio > 0）
 
 #### 吸顶跟取消吸顶
@@ -165,5 +165,71 @@ wx.request({
 ```
 
 ### 商品详情联动
+
+#### 原理
+
+使用 relativeTo 设置参照区域（tabList 节点）与目标节点（商品节点、评价节点、详情节点和推荐节点）相交情况，来选中对应的 tab。
+
+临界点：
+
+向上滑动时，目标节点与参照区域相交，选中当前目标节点对应的 tab  
+再往上滑，上一个目标节点离开参照区域，不做处理
+
+往下滑动时，上一个目标节点进入参照区域，不做处理  
+再往下滑动时，目标节点离开参照区域，选中上一个目标节点对应的 tab
+
+不做处理的两种情况：boundingClientRect.top < 0 , 即目标节点在参照区域上方进入或离开。
+
+#### 代码
+
+```wxml
+  <!-- 商品 -->
+  <view class="good" data-target="0">
+    商品
+  </view>
+  <!-- 评价 -->
+  <view class="comment" data-target="1">
+    评价
+  </view>
+  <!-- 推荐 -->
+  <view class="guess" data-target="2">
+    推荐
+  </view>
+  <!-- 详情 -->
+  <view class="detail" data-target="3">
+    详情
+  </view>
+  <view class="tab-list">
+    <view wx:for="{{tabList}}" wx:key="index" class="tab-item {{target === item.name ? 'active' : ''}}">{{item.text}}</view>
+  </view>
+```
+
+```js
+const list = ["good", "comment", "guess", "detail"];
+this.IntersectionObserver = wx.createIntersectionObserver(this, {
+  observeAll: true,
+});
+
+this.IntersectionObserver.relativeTo(".tab-list").observe(
+  ".good, .comment, .guess, .detail",
+  (res) => {
+    const { target } = res.dataset;
+
+    if (res.boundingClientRect.top < 0) return;
+
+    console.log(res);
+
+    if (res.intersectionRatio) {
+      this.setData({
+        target: list[target],
+      });
+    } else {
+      this.setData({
+        target: list[target - 1],
+      });
+    }
+  }
+);
+```
 
 ### 自动化埋点
