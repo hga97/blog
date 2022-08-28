@@ -24,11 +24,16 @@
 功能：指定页面显示区域作为参照区域之一  
 参数：Object margins 用来扩展（或收缩）参照节点布局区域的边界
 
+##### IntersectionObserver IntersectionObserver.relativeTo(string selector, Object margins)
+
+功能：使用选择器指定一个节点，作为参照区域之一。  
+参数：string selector 选择器，Object margins 用来扩展（或收缩）参照节点布局区域的边界
+
 ### 吸顶组件
 
 #### 确定临界点，设置参照区域
 
-##### 页面显示区 = sticky 内容区域（目标节点的大小一样，单位 px） + 参照区域
+##### 页面显示区 = sticky 内容区域（目标节点的大小一样，单位 px） +  参照区域
 
 当上滑到 sticky 内容区域时：刚好目标节点跟 sticky 的内容区域重合，相交比例为 0，触发吸顶。（intersectionRatio 为 0）  
 当下滑到 sticky 内容区域时：刚好目标节点跟参照区域相交，相交比例大于 0， 取消吸顶（intersectionRatio > 0）
@@ -88,3 +93,77 @@ this.IntersectionObserver.relativeToViewport({
   }
 });
 ```
+
+### 图片懒加载
+
+#### 原理
+
+参照区域设置为屏幕可视区域再往下 200px，往下一点，使得未进入可视区提前加载。当图片未进入默认展示白色背景。当图片与参照区域相交时，展示图片。
+
+#### 代码
+
+```wxml
+<image class="good-img img-fadeIn" style="{{item.show ? 'opacity: 1' : ''}}" data-index="{{index}}" data-show="{{!!item.show}}" src="{{item.show ? item.url : ''}}" />
+```
+
+```css
+.good-item {
+  overflow: hidden;
+  margin: 17rpx 8rpx 0;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.good-img {
+  width: 350rpx;
+  height: 350rpx;
+}
+
+.img-fadeIn {
+  opacity: 0;
+  transition: opacity 0.5s ease-in;
+}
+```
+
+```js
+wx.request({
+  url: "https://example.com/goodlist",
+  success: (res) => {
+    const { goodList } = res.data;
+    this.setData(
+      {
+        goodList,
+        loading: false,
+      },
+      () => {
+        // 图片渲染完在监听
+        this.IntersectionObserver = wx.createIntersectionObserver(this, {
+          observeAll: true,
+        });
+
+        // 往下200px，可以使得图片为进入可视区提前加载，没有与参照区域相交的还是没显示图片的
+        this.IntersectionObserver.relativeToViewport({ bottom: 200 }).observe(
+          ".good-img",
+          (res) => {
+            const { index, show } = res.dataset;
+            const { goodList } = this.data;
+            // show，渲染过的图片，不再重复setDate
+            if (res.intersectionRatio > 0 && !show) {
+              this.setData({
+                ["goodList[" + index + "]"]: {
+                  ...goodList[index],
+                  show: true,
+                },
+              });
+            }
+          }
+        );
+      }
+    );
+  },
+});
+```
+
+### 商品详情联动
+
+### 自动化埋点
