@@ -20,6 +20,7 @@
     - [css-in-js](react/jira/css-in-js.md)
 - 小程序
   - [IntersectionObserver实战案例](miniprogram/IntersectionObserver.md)
+  - [自动化埋点实战案例](miniprogram/track.md)
 - 工程化
   - [AST基础](project/ast.md)
   - [webpack-bundle-analyzer](project/analyzer.md)
