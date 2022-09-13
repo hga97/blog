@@ -11,4 +11,13 @@ console.log(typeof "Hello world"); //string
 ```ts
 let s = "hello";
 let n: typeof s; // let s: string
+
+const defaultConfig = {
+  throwOnError: false,
+};
+
+// const a: {
+//     throwOnError: boolean;
+// }
+const a: typeof defaultConfig;
 ```
