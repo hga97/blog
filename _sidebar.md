@@ -13,6 +13,7 @@
   - [函数](ts/fn.md)
   - [对象类型](ts/objectType.md)
   - [keyof操作符](ts/keyof.md)
+  - [typeof操作符](ts/typeof.md)
 - react
   - jira项目实战
     - [项目初始化](react/jira/init.md)
