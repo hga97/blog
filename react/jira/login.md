@@ -2,11 +2,11 @@
 
 ```ts
 const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const username = (event.currentTarget.elements[0] as HTMLInputElement).value;
-    const password = (event.currentTarget.elements[1] as HTMLInputElement).value;
-    login({ username, password });
-    // console.log(event.currentTarget.elements[0].value);
+  event.preventDefault();
+  const username = (event.currentTarget.elements[0] as HTMLInputElement).value;
+  const password = (event.currentTarget.elements[1] as HTMLInputElement).value;
+  login({ username, password });
+  // console.log(event.currentTarget.elements[0].value);
 };
 ```
 
@@ -14,16 +14,15 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 
 [jira-dev-tool](https://github.com/sindu12jun/jira-dev-tool)
 
-
 ### auth-provider
 
 如果使用第三方登录，自己不用开发
 
 ```ts
-getToken
-login
-register
-logout
+getToken;
+login;
+register;
+logout;
 ```
 
 ### Context
@@ -74,11 +73,11 @@ const AppProviders = ({ children }: { children: ReactNode }) => (
 );
 
 <AppProviders>
-    <App />
-</AppProviders>
+  <App />
+</AppProviders>;
 ```
 
-3、使用Context 
+3、使用 Context
 
 ```ts
 const useAuth = () => {
@@ -97,7 +96,7 @@ function App() {
 }
 ```
 
-### Utility Types、联合类型、Partial和Omit
+### Utility Types、联合类型、Partial 和 Omit
 
 1、联合类型
 
@@ -120,9 +119,9 @@ let roseFavoriteNumber: FavoriteNumber = "6";
 
 3、interface
 
-类型别名在很多情况下和interface互换
+类型别名在很多情况下和 interface 互换
 
-4、类型别名和interface的区别
+4、类型别名和 interface 的区别
 
 ```ts
 // 定义联合类型，interface没法替代type
@@ -133,15 +132,23 @@ type f = string | number;
 
 5、utility type
 
-utility type 的用法：用泛型给它传入一个其他类型，然后utility type对这个类型进行某种操作
+utility type 的用法：用泛型给它传入一个其他类型，然后 utility type 对这个类型进行某种操作
 
 6、Parameters
+
+用于获取函数 T 的参数类型, 返回一个元祖
+
+```ts
+const fn = (a: string, b: number) => {};
+
+// const a: [a: string, b: number]
+const a: Parameters<typeof fn>;
+```
 
 js typeof runtime  
 ts 静态环境 typeof http，提取变量
 
-
-7、Partial和Omit
+7、Partial 和 Omit
 
 ```ts
 type Person = {
@@ -152,38 +159,35 @@ const xiaoMing: Partial<Person> = {}; //可传可不传
 const shenMiRen: Omit<Person, "name" | "age"> = {}; //删除
 ```
 
-### Partial、pick、exclue和Omit
+### Partial、pick、exclue 和 Omit
 
-1、Partial的实现
+1、Partial 的实现
 
 ```ts
-
 type Person = {
   name: string;
   age: number;
 };
 
 const xiaoMing: Partial<Person> = {}; //可传可不传
-const xiaoMing: Partial<Person> = { name: '22'}; //可传可不传
-const xiaoMing: Partial<Person> = { name: '22', age:1}; //可传可不传
+const xiaoMing: Partial<Person> = { name: "22" }; //可传可不传
+const xiaoMing: Partial<Person> = { name: "22", age: 1 }; //可传可不传
 type PersonKeys = keyof Person; // type PersonKeys = 'name' | 'age'
 // keyof: keyof 取 interface 的键，联合类型
 // in: 则可以遍历枚举类型
 
 type Partial<T> = {
-    [P in keyof T]?: T[P];
+  [P in keyof T]?: T[P];
 };
-
-
 ```
 
-2、Pick的实现
+2、Pick 的实现
 
 ```ts
 
-type PersonOnlyName = Pick<Person, "name" | "age">; 
+type PersonOnlyName = Pick<Person, "name" | "age">;
 
-=> 
+=>
 
 type PersonOnlyName = {
     name: string;
@@ -198,17 +202,17 @@ type Pick<T, K extends keyof T> = {
 
 ```
 
-3、Exclude的实现
+3、Exclude 的实现
 
 ```ts
 
 type Age = Exclude<PersonKeys, "name">;
 
-=> 
+=>
 
 type Age = "age"
 
-<!-- 
+<!--
 // 遍历时
 // 为name：不返回
 // 为age：返回age
@@ -219,7 +223,7 @@ type Exclude<T, U> = T extends U ? never : T;
 // 换种更加贴近语义的说法其实就是从T 中排除 U
 
 // T:联合类型
-// never：什么都没有 
+// never：什么都没有
 
 ```
 
