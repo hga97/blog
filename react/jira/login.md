@@ -206,18 +206,7 @@ type Pick<T, K extends keyof T> = {
 
 ```ts
 
-type Age = Exclude<PersonKeys, "name">;
-
-=>
-
-type Age = "age"
-
-<!--
-// 遍历时
-// 为name：不返回
-// 为age：返回age
--->
-
+type Age = Exclude<PersonKeys, "name">; // type Age = "age"
 type Exclude<T, U> = T extends U ? never : T;
 // 如果 T 是 U 的子类型的话，那么就会返回 never，否则返回 T
 // 换种更加贴近语义的说法其实就是从T 中排除 U
@@ -227,7 +216,23 @@ type Exclude<T, U> = T extends U ? never : T;
 
 ```
 
+```ts
+type A = "a" | "b" | "c";
+type B = "a" | "d";
+
+type C = Exclude<A, B>; // type C = "b" | "c"
+
+type C =
+  | ("a" extends "a" | "d" ? never : "a")
+  | ("b" extends "a" | "d" ? never : "b")
+  | ("c" extends "a" | "d" ? never : "c");
+
+// 遍历A，移除与B相同的项
+```
+
 4、Omit
+
+构造一个具有 T 属性的类型，但 K 类型中的属性除外。
 
 ```ts
 const shenMiRen: Omit<Person, "name" | "age"> = {};
