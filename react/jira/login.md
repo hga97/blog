@@ -205,7 +205,6 @@ type Pick<T, K extends keyof T> = {
 3、Exclude 的实现
 
 ```ts
-
 type Age = Exclude<PersonKeys, "name">; // type Age = "age"
 type Exclude<T, U> = T extends U ? never : T;
 // 如果 T 是 U 的子类型的话，那么就会返回 never，否则返回 T
@@ -213,7 +212,6 @@ type Exclude<T, U> = T extends U ? never : T;
 
 // T:联合类型
 // never：什么都没有
-
 ```
 
 ```ts
@@ -237,4 +235,6 @@ type C =
 ```ts
 const shenMiRen: Omit<Person, "name" | "age"> = {};
 type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
+
+type KEY = keyof any; //type KEY = string | number | symbol
 ```
