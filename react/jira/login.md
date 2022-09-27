@@ -238,3 +238,66 @@ type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
 type KEY = keyof any; //type KEY = string | number | symbol
 ```
+
+### extends
+
+#### 继承接口或者类
+
+```ts
+interface BasicAddress {
+  name?: string;
+  street: string;
+  city: string;
+  country: string;
+  postalCode: string;
+}
+
+interface AddressWithUnit extends BasicAddress {
+  unit: string;
+}
+```
+
+#### 泛型约束
+
+```ts
+function longest<Type extends { length: number }>(a: Type, b: Type) {
+  if (a.length >= b.length) {
+    return a;
+  } else {
+    return b;
+  }
+}
+
+// const longerArray: number[]
+const longerArray = longest([1, 2], [1, 2, 3]);
+
+// const longerString: "alice" | "bob"
+const longerString = longest("alice", "bob");
+
+// const notOK: { length: number };
+// 类型“number”的参数不能赋给类型“{ length: number; }”的参数
+const notOK = longest(10, 100);
+```
+
+```ts
+function a<T extends string>(a: T) {
+  return a;
+}
+
+// 类型“number”的参数不能赋给类型“string”的参数。ts(2345)
+a(1);
+```
+
+```ts
+interface Person {
+  name: "curry";
+  age: 18;
+}
+
+type Pick<T, K extends keyof T> = {
+  [P in K]: T[P];
+};
+
+// 类型“"sex"”不满足约束“keyof Person”。ts(2344)
+type PersonOnlyName = Pick<Person, "sex">;
+```
