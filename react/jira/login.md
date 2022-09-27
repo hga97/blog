@@ -29,7 +29,7 @@ logout;
 
 Context 提供了一个无需为每层组件手动添加 props，就能在组件树间进行数据传递的方法。
 
-1、创建一个 Context 对象
+#### 创建一个 Context 对象
 
 ```ts
 const AuthContext = React.createContext<
@@ -43,7 +43,7 @@ const AuthContext = React.createContext<
 >(undefined);
 ```
 
-2、Context.Provider
+#### Context.Provider
 
 每个 Context 对象都会返回一个 Provider React 组件，它允许消费组件订阅 context 的变化。
 
@@ -77,7 +77,7 @@ const AppProviders = ({ children }: { children: ReactNode }) => (
 </AppProviders>;
 ```
 
-3、使用 Context
+#### 使用 Context
 
 ```ts
 const useAuth = () => {
