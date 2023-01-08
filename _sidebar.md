@@ -8,6 +8,7 @@
   - [变量对象](js/variable.md)
   - [作用域链](js/scope-chain.md)
 - typescript
+  - [tsconfig](ts/tsconfig.md)
   - [基础入门](ts/base.md)
   - [常见类型](ts/type.md)
   - [类型收窄](ts/narrowing.md)
@@ -71,7 +72,7 @@
 <!-- 组件库，低代码平台，路由原理，mobx（√）, swr -->
 
 <!-- 工程化 -->
-<!-- 一系列流程，调试，包分析（√），构建速度等等，npm包发布 -->
+<!-- 一系列流程，调试，包分析（√），构建速度等等，npm包发布，npm私源 -->
 
 <!-- 优化 -->
 <!-- 长列表 loading ... -->
