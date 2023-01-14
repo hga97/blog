@@ -27,7 +27,12 @@
 - 小程序
   - [IntersectionObserver实战案例](miniprogram/IntersectionObserver.md)
   - [自动化埋点实战案例](miniprogram/track.md)
+- node
+  - [基础知识点](node/base.md) 
 - 工程化
+  - cli工具
+    - [分析](project/cli/baseAnalysis.md)
+    - [eslint](project/cli/eslint.md)
   - [AST基础](project/ast.md)
   - [webpack-bundle-analyzer](project/analyzer.md)
 - 计算机科学与技术
