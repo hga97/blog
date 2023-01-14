@@ -35,7 +35,7 @@ vscode 安装 eslint 插件，在我们编写代码时，eslint 插件会自动�
 
 #### Node ESLint API
 
-```tsx
+```ts
 const eslint = new ESLint(options); // 创建一个eslint实例
 ```
 
@@ -55,7 +55,8 @@ options 对象配置参数解释：
 
 - overrideConfig
 
-  默认为空，项目的 eslint 配置覆盖此实例使用的所有配置。  
+  默认为空，项目的 eslint 配置（ .eslintrc、packages.json 的 eslintConfig 属性 等）覆盖此实例使用的所有配置。
+
   你可以使用此选项定义将要使用的设置，即使项目的 eslint 对其进行了配置。（覆盖本地的配置）
 
   - env
@@ -66,6 +67,10 @@ options 对象配置参数解释：
 
     extends 可以看做是去集成一个个配置方案的最佳实践。
 
+    例如：
+
+    eslint:recommended // eslint 官方提供的 recommended 规范
+
   - parser
 
     解析器
@@ -75,7 +80,7 @@ options 对象配置参数解释：
     启用对 ECMAScript 其它版本和 JSX 的支持。
 
     ecmaFeatures：想使用的额外的语言特性，jsx；  
-    ecmaVersion：ECMAScript 版本；
+    ecmaVersion：ECMAScript 版本；  
     sourceType：有两个值，script 和 module。对于 ES6+ 的语法和用 import / export 的语法必须用 module.
 
   - plugins
@@ -95,6 +100,8 @@ options 对象配置参数解释：
 #### 创建 eslint 工具类
 
 <!-- https://eslint.org/docs/latest/developer-guide/nodejs-api -->
+
+1、创建 eslint 实例
 
 ```ts
 import { ESLint } from "eslint";
@@ -121,4 +128,37 @@ const eslint = new ESLint({
   }, // 覆盖配置
   resolvePluginsRelativeTo: getDirPath("node_modules"), //指定 loader 加载路径
 });
+```
+
+2、eslint 检查并修复代码
+
+```ts
+const getEslint = async (path = "src") => {
+  try {
+    loggerTiming("ESLINT CHECK");
+
+    // 2、 格式化文件
+    const results = await eslint.lintFiles([getCwdPath(path)]);
+
+    // 3、修复代码
+    await ESLint.outputFixes(results);
+
+    // 4、格式化结果
+    const formatter = await eslint.loadFormatter("stylish");
+
+    const resultText = formatter.format(results);
+
+    // 5、输出.
+    if (resultText) {
+      loggerError(`'PLEASE CHECK ===》', ${resultText}`);
+    } else {
+      console.log("完美！");
+    }
+  } catch (error) {
+    process.exitCode = 1;
+    console.error("error===>", error);
+  } finally {
+    loggerTiming("ESLINT CHECK", false);
+  }
+};
 ```
