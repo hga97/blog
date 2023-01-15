@@ -126,7 +126,7 @@ const eslint = new ESLint({
     },
     plugins: ["react", "@typescript-eslint"],
   }, // 覆盖配置
-  resolvePluginsRelativeTo: getDirPath("node_modules"), //指定 loader 加载路径
+  resolvePluginsRelativeTo: getDirPath("../../node_modules"), //指定 loader 加载路径
 });
 ```
 
@@ -162,3 +162,7 @@ const getEslint = async (path = "src") => {
   }
 };
 ```
+
+Error: No files matching '/Users/xxxxx/Desktop/FE/project/react-tpl/src' were found.
+
+**不是没找到src文件，而是src下面的文件没有包含配置的扩展名。**
