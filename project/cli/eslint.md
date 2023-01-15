@@ -165,4 +165,12 @@ const getEslint = async (path = "src") => {
 
 Error: No files matching '/Users/xxxxx/Desktop/FE/project/react-tpl/src' were found.
 
-**不是没找到src文件，而是src下面的文件没有包含配置的扩展名。**
+**不是没找到 src 文件，而是 src 下面的文件没有包含配置的扩展名。**
+
+extends: ["eslint:recommended"] // 启动 eslint 推荐的规范
+
+https://github.com/eslint/eslint/blob/main/conf/eslint-recommended.js
+
+https://eslint.bootcss.com/docs/rules/
+
+fix 规则只有一些，其他的需要自己配置 rules
