@@ -14,7 +14,7 @@ ESLint 是完全插件化的。每一个规则都是一个插件并且你可以�
 
 ```zsh
 npm i -g eslint //全局安装
-npm i -d eslint //局部安装
+npm i -D eslint //局部安装
 ```
 
 #### 初始化
@@ -163,14 +163,26 @@ const getEslint = async (path = "src") => {
 };
 ```
 
-Error: No files matching '/Users/xxxxx/Desktop/FE/project/react-tpl/src' were found.
+3、开发出现的问题
 
-**不是没找到 src 文件，而是 src 下面的文件没有包含配置的扩展名。**
+- No files matching
 
-extends: ["eslint:recommended"] // 启动 eslint 推荐的规范
+  Error: No files matching '/Users/xxxxx/Desktop/FE/project/react-tpl/src' were found.
 
-https://github.com/eslint/eslint/blob/main/conf/eslint-recommended.js
+  **不是没找到 src 文件，而是 src 下面的文件没有包含配置的扩展名。**
 
-https://eslint.bootcss.com/docs/rules/
+- 使用 eslint 推荐规范，添加额外的 fix 规则
 
-fix 规则只有一些，其他的需要自己配置 rules
+  extends: ["eslint:recommended"] // 启动 eslint 推荐的规范
+
+  https://github.com/eslint/eslint/blob/main/conf/eslint-recommended.js // 文件
+
+  https://eslint.bootcss.com/docs/rules/ //详情规则
+
+  fix 规则只有一些，其他的需要自己配置 rules
+
+  ```json
+    "rules": {
+      "no-var": 1
+    }
+  ```
