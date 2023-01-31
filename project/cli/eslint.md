@@ -87,6 +87,11 @@ options 对象配置参数解释：
 
     plugin 插件主要是为 eslint 新增一些检查规则。
 
+    ?> plugins 与 extends 的区别  
+    plugin 插件主要是为 eslint 新增一些检查规则，不同场景、不同规范下有些定制的 eslint 检查需求，eslint 默认提供的可选规则中如果没有，
+    这个时候就需要做一些扩展了。例如：eslint-plugin-react 对 react 项目做了一些定制的 eslint 规则。  
+    extends 可以看做是去集成一个个配置方案的最佳实践。例如：eslint-plugin-react/recommended、eslint:recommended 等
+
 - resolvePluginsRelativeTo
 
   如果存在路径，ESLint 将从那里加载所有插件。
