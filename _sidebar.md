@@ -28,7 +28,9 @@
   - [IntersectionObserver实战案例](miniprogram/IntersectionObserver.md)
   - [自动化埋点实战案例](miniprogram/track.md)
 - node
-  - [基础知识点](node/base.md) 
+  - [基础知识点](node/base.md)
+- 组件库
+  - [项目初始化](components/init.md)
 - 工程化
   - cli工具
     - [分析](project/cli/baseAnalysis.md)
