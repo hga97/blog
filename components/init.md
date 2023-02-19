@@ -111,9 +111,9 @@ npx husky add .husky/pre-commit "npm test"
 git add .husky/pre-commit
 ```
 
-pre-commit
-
 调用 git commit 命令时执行 lint-staged 进行代码检测
+
+.husky/pre-commit
 
 ```
 npx lint-staged
@@ -133,10 +133,24 @@ npm install --save-dev @commitlint/config-conventional @commitlint/cli
 echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitlint.config.js
 ```
 
-git commit 时，提交的信息使用 commitlint 校验
+git commit 提交的信息使用 commitlint 校验
 
 ```zsh
 npx husky add .husky/commit-msg  'npx --no -- commitlint --edit ${1}'
+```
+
+#### 标准化的 commit message
+
+Commitizen 是一个支持 angular 的 Commit message 格式，其提供了一个 git cz 的命令来替代 git commit。
+
+```zsh
+yarn add commitizen --dev
+```
+
+changelog
+
+```zsh
+yarn add cz-conventional-changelog --dev
 ```
 
 ### TypeScript
