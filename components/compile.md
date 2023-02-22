@@ -44,13 +44,28 @@ yarn add @babel/core @babel/preset-env @babel/preset-react @babel/preset-typescr
 @babel/plugin-proposal-class-properties  @babel/plugin-transform-runtime --dev
 ```
 
-1、.browserslistrc
+#### browserslist
 
 为流行的 JavaScript 工具（如 Autoprefixer、Babel、ESLint、PostCSS 和 Webpack）共享浏览器兼容性配置
 
-- babel，在 @babel/preset-env 中使用 core-js 作为垫片
-- postcss 使用 autoprefixer 作为垫片
+.browserslistrc
 
+```
+>0.2%
+not dead
+not op_mini all
+```
+
+?> browserslist  
+babel，在 @babel/preset-env 中使用 core-js 作为垫片  
+postcss 使用 autoprefixer 作为垫片
+
+?> 前端打包体积与垫片关系  
+1、由于低浏览器版本的存在，垫片是必不可少的  
+2、垫片越少，则打包体积越小  
+3、浏览器版本越新，则垫片越少
+
+<!--
 ```js
 module.exports = {
   // 智能预设：能够编译ES6语法
@@ -62,24 +77,21 @@ module.exports = {
     ],
   ],
 };
-```
+``` -->
 
-前端打包体积与垫片关系
-
-1、由于低浏览器版本的存在，垫片是必不可少的
-2、垫片越少，则打包体积越小
-3、浏览器版本越新，则垫片越少
-
-2、polyfill
+#### polyfill
 
 建议将 polyfill 的选择权交还给使用者，在宿主环境进行 polyfill
 
-3、.babelrc.js
+#### babel
 
 babel 是一种 js 语法编译器，在前端开发过程中，由于浏览器的版本和兼容性问题，很多 js 的新方法和特性的使用都受到了限制。
 使用 babel 可以将代码中 js 代码编译成兼容绝大多数主流浏览器的代码。
 
+?> .babelrc.js  
 .babelrc 文件需要的配置项主要有预设(presets)和插件(plugins)。
+
+.babelrc.js
 
 ```js
 module.exports = {
@@ -91,7 +103,9 @@ module.exports = {
 };
 ```
 
-4、gulpfile.js
+#### gulp
+
+gulpfile.js
 
 ```js
 const gulp = require("gulp");
@@ -124,19 +138,22 @@ exports.default = build;
 
 ### 导出 esm 模块
 
-如果使用 import 对该库进行导入，则首次寻找 module 字段引入，否则引入 main 字段。
+#### module
 
-module 字段作为 es module 入口  
-main 字段作为 commonjs 入口
+如果使用 import 对该库进行导入，则首次寻找 module 字段引入，否则引入 main 字段。
 
 package.json
 
 ```json
-  "main": "lib/index.js",
-  "module": "esm/index.js",
+{
+  "main": "lib/index.js", //  commonjs 入口
+  "module": "esm/index.js" // es module 入口
+}
 ```
 
-1、.babelrc.js
+#### babel
+
+.babelrc.js
 
 ```js
 module.exports = {
@@ -194,7 +211,9 @@ module.exports = {
 };
 ```
 
-2、gulpfile.js
+#### gulp
+
+gulpfile.js
 
 ```js
 function compileScripts(babelEnv, destDir) {
@@ -221,7 +240,7 @@ const build = gulp.parallel(buildScripts);
 
 ### 处理样式
 
-1、拷贝 less 文件
+#### 拷贝 less 文件
 
 会将 less 文件包含在 npm 包中，用户可以通过 /lib/alert/style/index.js 的形式按需引入 less 文件，此处可以直接将 less 文件拷贝至目标文件夹。
 
@@ -238,18 +257,18 @@ function copyLess() {
 const build = gulp.parallel(buildScripts, copyLess);
 ```
 
-2、预处理器问题
+#### 预处理器问题
 
 若使用者没有使用 less 预处理器，使用的是 sass 方案甚至原生 css 方案，那现有方案就搞不定了。
 
-方案
+解决方案如下：
 
 - 告知业务方增加 less-loader。会导致业务方使用成本增加；
 - 打包出一份完整的 css 文件，进行全量引入。无法进行按需引入；
 - css in js 方案；
-- 提供一份 style/css.js 文件，引入组件 css 样式依赖，而非 less 依赖，组件库底层抹平差异。（antd 方案）
+- 提供一份 style/css.js 文件，引入组件 css 样式依赖，而非 less 依赖，组件库底层抹平差异。（采用改方案）
 
-3、生成 css 文件
+#### 生成 css 文件
 
 ```zsh
 yarn add gulp-less gulp-autoprefixer gulp-cssnano --dev
@@ -271,7 +290,7 @@ function less2css() {
 const build = gulp.parallel(buildScripts, copyLess, less2css);
 ```
 
-4、生成 css.js
+#### 生成 css.js
 
 需要一个 alert/style/css.js 来帮用户引入 css 文件。
 
@@ -316,14 +335,14 @@ function compileScripts(babelEnv, destDir) {
 
 在 package.json 中增加 sideEffects 属性，配合 ES module 达到 tree shaking 效果（将样式依赖文件标注为 side effects，避免被误删除）。
 
-1、手动按需引入
+#### 手动按需引入
 
 ```tsx
 import { Alert } from "h-ui";
 import "h-ui/esm/alert/style";
 ```
 
-2、babel-plugin-import（增加了使用成本）
+#### babel-plugin-import（增加了使用成本）
 
 ```tsx
 import { Alert } from "h-ui";
