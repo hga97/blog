@@ -103,6 +103,11 @@ module.exports = {
 };
 ```
 
+?> plugin-transform-runtime 和 @babel/runtime  
+@babel/preset-env 在做语法转换的时候，注入了辅助函数，以便语法转换后使用。  
+@babel/runtime 把所有语法转换会用到的辅助函数都集成在了一起。  
+@babel/plugin-transform-runtime 自动移除语法转换后内联的辅助函数，使用 @babel/runtime/helpers 里的辅助函数来替代。这样就减少了我们手动引入的麻烦。
+
 #### gulp
 
 gulpfile.js
