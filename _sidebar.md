@@ -32,6 +32,7 @@
 - 组件库
   - [项目初始化](components/init.md)
   - [编译打包](components/compile.md)
+  - [单元测试](components/test.md)
 - 工程化
   - cli工具
     - [分析](project/cli/baseAnalysis.md)
