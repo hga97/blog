@@ -3,6 +3,7 @@
   - [css模块化方案](css/css-modules.md)
   - [移动端适配](css/mobile-fit.md)
 - js
+  - [原型与原型链](js/prototype.md)
   - [作用域](js/scope.md)
   - [执行上下文栈](js/execute.md)
   - [变量对象](js/variable.md)
@@ -78,7 +79,7 @@
 <!-- 顶部导航组件，吸顶组件（√），埋点，活动页组件，监控, CI/CD -->
 
 <!-- react -->
-<!-- 组件库，低代码平台，路由原理，mobx（√）, swr -->
+<!-- 组件库(√)，低代码平台，路由原理，mobx（√）, swr -->
 
 <!-- 工程化 -->
 <!-- 一系列流程，调试，包分析（√），构建速度等等，npm包发布，npm私源 -->
