@@ -4,10 +4,10 @@
 
 - 项目初始化：开发前期准备。eslint/commit lint/typescript
 - 开发阶段：使用 dumi 进行开发调试以及文档编写
-- 打包阶段：输出 umd/cjs/esm 产物并支持按需加载
+- 打包阶段：输出 cjs/esm 产物并支持按需加载
 - 组件测试： 使用@testing-library/react 及其相关生态进行组件测试
-- 发布 npm：编写脚本完成发布或使用np发布
-- 部署文档站点：使用 github pages 以及 github actions 完成文档站点自动部署
+- 发布 npm：使用 np 发布
+- 部署文档站点：使用 github pages 完成文档站点部署
 
 ### 代码规范
 
