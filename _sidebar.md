@@ -11,6 +11,7 @@
   - [this](js/this.md)
   - [执行上下文](js/execution-context.md)
   - [闭包](js/closure.md)
+  - [call和apply](js/call-and-apply.md)
 - typescript
   - [tsconfig](ts/tsconfig.md)
   - [基础入门](ts/base.md)
