@@ -9,6 +9,7 @@
   - [变量对象](js/variable.md)
   - [作用域链](js/scope-chain.md)
   - [this](js/this.md)
+  - [执行上下文](js/execution-context.md)
 - typescript
   - [tsconfig](ts/tsconfig.md)
   - [基础入门](ts/base.md)
