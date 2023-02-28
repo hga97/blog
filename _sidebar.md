@@ -13,6 +13,7 @@
   - [闭包](js/closure.md)
   - [call和apply](js/call-and-apply.md)
   - [bind](js/bind.md)
+  - [new](js/new.md)
 - typescript
   - [tsconfig](ts/tsconfig.md)
   - [基础入门](ts/base.md)
