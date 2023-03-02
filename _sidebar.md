@@ -30,6 +30,8 @@
     - [项目列表ts化](react/jira/ts.md)
     - [jwt、用户认证与异步请求](react/jira/login.md)
     - [css-in-js](react/jira/css-in-js.md)
+  - 原理
+    - [手写react-mini-router](react/principle/react-mini-router.md)
   - [Mobx](react/MobX.md)
 - 小程序
   - [IntersectionObserver实战案例](miniprogram/IntersectionObserver.md)
