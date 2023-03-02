@@ -1,15 +1,13 @@
 ### 路由本质
 
-前端路由：对 url 进行改变和监听，来让某个 dom 节点显示对应的视图
+前端路由：**对 url 进行改变和监听，来让某个 dom 节点显示对应的视图。**
 
 ### 路由的区别
 
 浏览器的路由分为两种：
 
-- hash 路由，特征是 url 后面会有#号
+- hash 路由，特征是 url 后面会有#号。
 - history 路由，url 和普通路径没有差异。
-
-搞清楚两种路由分别是如何改变，并且组件是如何监听并完成视图的展示。
 
 #### hash
 
@@ -24,14 +22,17 @@ https://www.baidu.com 变成 https://www.baidu.com/#foo
 history.pushState(state, title[, url])
 ```
 
-state 代表状态对象，这让我们可以给每个路由记录创建自己的状态，并且它还会序列化后保存在用户的磁盘上，以便用户重新启动浏览器后可以将其还原。
+**state**  
+代表状态对象，可以给每个路由记录创建自己的状态，并且它还会序列化后保存在用户的磁盘上，以便用户重新启动浏览器后可以将其还原。
 
-title 当前没啥用
+**title**  
+当前没啥用
 
-url 新的网址
+**url**  
+新的网址
 
 history.pushState({}, '', 'foo')  
-https://www.baidu.com 变化为 https://www.baidu.com/foo。
+https://www.baidu.com 变化为 https://www.baidu.com/foo
 
 路径更新后，浏览器页面不会重新加载？
 
@@ -42,7 +43,7 @@ history.pushState 可以让 url 改变，但是不重新加载页面，完全由
 
 本质上是因为刷新以后是带着 baidu.com/foo 这个页面去请求服务端资源的，但是服务端并没有对这个路径进行任何的映射处理，当然会返回 404，处理方式是让服务端对于"不认识"的页面,返回 index.html，这样这个包含了前端路由相关 js 代码的首页，就会加载你的前端路由配置表，并且此时虽然服务端给你的文件是首页文件，但是你的 url 上是 baidu.com/foo，前端路由就会加载 /foo 这个路径相对应的视图，完美的解决了 404 问题。
 
-history 路由的监听也有点坑，浏览器提供了 window.addEventListener('popstate') 事件，但是它只能监听到浏览器回退和前进所产生的路由变化，对于主动的 pushState 却监听不到。解决方案当然有，下文实现 react-router 的时候再细讲~
+history 路由的监听也有点坑，浏览器提供了 window.addEventListener('popstate') 事件，但是**它只能监听到浏览器回退和前进所产生的路由变化，**对于主动的 pushState 却监听不到。
 
 ### 实现 react-mini-router
 
