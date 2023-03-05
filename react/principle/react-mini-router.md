@@ -130,6 +130,9 @@ export const Router = ({ children }) => {
 
 并且这一步也会触发 Provider 的 value 值的变化，通知所有用 useContext 订阅了 history 和 location 的子组件去重新 render。
 
+?> context  
+react 内部做了处理，如果改变了 context 的值，那么会遍历所有的子组件，找到用到 context 值的组件，触发它的更新。
+
 #### 实现 Route
 
 Route 组件接受 path 和 children 两个 prop， 本质上就决定了在某个路径下需要渲染什么组件，通过 Router 的 Provider 传递下来的 location 信息拿到当前路径，所以这个组件需要做的就是判断当前的路径是否匹配，渲染对应组件。
