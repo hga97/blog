@@ -32,7 +32,8 @@
     - [css-in-js](react/jira/css-in-js.md)
   - 原理
     - [前端框架的理解](react/principle/frame.md)
-    - [vdom渲染和jsx编辑](react/principle/vdom-jsx.md)
+    - [vdom渲染和jsx编辑](react/principle/vdom-and-jsx.md)
+    - [function和class组件](react/principle/fn-and-class.md)
     - [手写react-mini-router](react/principle/react-mini-router.md)
   - [Mobx](react/MobX.md)
 - 小程序
