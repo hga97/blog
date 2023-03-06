@@ -1,13 +1,14 @@
 ### vdom 的渲染
 
+1、vdom
+
 vdom 全称 virtual dom，用来声明式的描述页面，现代前端框架很多都基于 vdom。前端框架负责把 vdom 转为对真实 dom 的增删改，也就是 vdom 的渲染。
 
 dom 主要是元素、属性、文本，vdom 也是一样，其中元素是{type,props,children}的结构，文本就是字符串、数字。
 
-例子 vdom：
+一段 vdom：
 
 ```js
-
 {
     type: 'ul',
     props: {
@@ -50,14 +51,15 @@ dom 主要是元素、属性、文本，vdom 也是一样，其中元素是{type
         }
     ]
 }
-
 ```
 
-描述的是一个 ul 的元素，它有三个 li 子元素，其中第一个子元素有 style 的样式和 onclick 的事件。
+它描述的是一个 ul 的元素，它有三个 li 子元素，其中第一个子元素有 style 的样式和 onclick 的事件。
 
 前端框架就是通过这样的对象结构来描述界面的，然后把它渲染到 dom。
 
-需要递归，对不同的类型做不用的处理。
+2、vdom 如何渲染
+
+需要递归，对不同的类型做不同的处理。
 
 - 文本类型，用 document.createTextNode 来创建文本节点。
 - 元素类型，用 document.createElement 来创建元素节点，元素节点还有属性要处理，并且要递归的渲染子节点。
@@ -140,11 +142,20 @@ const setAttribute = (dom, key, value) => {
 };
 ```
 
-vdom 写起来太麻烦了，没人会直接写 vdom，一般是通过更友好的 dsl（领域特定语言） 来写，然后编译成 vdom，比如 jsx
+3、vdom 的渲染流程
+
+**vdom 会递归的进行渲染，根据类型的不同，元素、文本会分别用 createTextNode、createElement 来递归创建 dom 并组装到一起，其中元素还要设置属性，style、事件监听器和其他属性分别用 addEventListener、setAttribute 等 api 进行设置。通过不同的 api 创建 dom 和设置属性，这就是 vdom 的渲染流程。**
 
 ### jsx 编译成 vdom
 
+vdom 写起来太麻烦了，没人会直接写 vdom，一般是通过更友好的 dsl（领域特定语言） 来写，然后编译成 vdom，比如 jsx。
+
 ```jsx
+const data = {
+  item1: "bbb",
+  item2: "ddd",
+};
+
 const jsx = (
   <ul className="list">
     <li
@@ -154,8 +165,8 @@ const jsx = (
     >
       aaa
     </li>
-    <li className="item">bbbb</li>
-    <li className="item">cccc</li>
+    <li className="item">{data.item1}</li>
+    <li className="item">{data.item2}</li>
   </ul>
 );
 
@@ -180,6 +191,11 @@ module.exports = {
 编译的产物
 
 ```js
+const data = {
+  item1: "bbb",
+  item2: "ddd",
+};
+
 const jsx = createElement(
   "ul",
   {
@@ -202,18 +218,20 @@ const jsx = createElement(
     {
       className: "item",
     },
-    "bbbb"
+    data.item1
   ),
   createElement(
     "li",
     {
       className: "item",
     },
-    "cccc"
+    data.item2
   )
 );
+
 render(jsx, document.getElementById("root"));
 
+// jsx 返回的就是vdom
 const createElement = (type, props, ...children) => {
   return {
     type,
