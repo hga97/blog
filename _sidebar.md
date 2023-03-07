@@ -35,6 +35,7 @@
     - [vdom渲染和jsx编辑](react/principle/vdom-and-jsx.md)
     - [function和class组件](react/principle/fn-and-class.md)
     - [patch](react/principle/patch.md)
+    - [fiber架构](react/principle/fiber.md)
     - [react-mini-router](react/principle/react-mini-router.md)
   - [Mobx](react/MobX.md)
 - 小程序
