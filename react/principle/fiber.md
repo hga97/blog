@@ -196,3 +196,45 @@ const setAttribute = (dom, key, value) => {
 ```
 
 这在 reconcile 时就做好了，commit 自然很快。
+
+### 总结
+
+1、fiber 打断原理
+
+把 vdom 转化为链表结构（fiber），render 阶段会找到 vdom 中变化的部分，创建 dom，打上增删改的标记，这个叫做 reconcile，调和。链表结构记录了兄弟节点和父节点信息。
+
+把 vdom 转换成 fiber，从原先的递归换成了循环，这样就可以打断了。
+
+循环处理前判断待处理的任务队列有没有优先级更高的任务，有的话就先处理那边的 fiber，这边的先暂停一下。
+
+2、commit
+
+commit 阶段就根据标记来更新 dom 就可以了。
+
+但是 commit 阶段要再遍历一次 fiber 来查找有 effectTag 的节点，更新 dom 么？
+
+完全可以在 reconcile 的时候把有 effectTag 的节点收集到一个队列里，然后 commit 阶段直接遍历这个队列就行了。
+
+这个队列叫做 effectList。
+
+react 会在 commit 阶段遍历 effectList，根据 effectTag 来增删改 dom。
+
+dom 创建前后就是 useEffect、useLayoutEffect 还有一些函数组件的生命周期函数执行的时候。
+
+useEffect 被设计成了在 dom 操作前异步调用，useLayoutEffect 是在 dom 操作后同步调用。
+
+因为都要操作 dom 了，这时候如果来了个 effect 同步执行，计算量很大，那不是把 fiber 架构带来的优势有毁了么？
+
+所以 effect 是异步的，不会阻塞渲染。
+
+而 useLayoutEffect，顾名思义是想在这个阶段拿到一些布局信息的，dom 操作完以后就可以了，而且都渲染完了，自然也就可以同步调用了。
+
+实际上 react 把 commit 阶段也分成了 3 个小阶段。
+
+before mutation、mutation、layout。
+
+mutation 就是遍历 effectList 来更新 dom 的。
+
+它的之前就是 before mutation，会异步调度 useEffect 的回调函数。
+
+它之后就是 layout 阶段了，因为这个阶段已经可以拿到布局信息了，会同步调用 useLayoutEffect 的回调函数。而且这个阶段可以拿到新的 dom 节点，还会更新下 ref。
