@@ -37,6 +37,7 @@
     - [patch](react/principle/patch.md)
     - [fiber架构](react/principle/fiber.md)
     - [diff](react/principle/diff.md)
+    - [hooks原理](react/principle/hooks.md)
     - [react-mini-router](react/principle/react-mini-router.md)
   - [Mobx](react/MobX.md)
 - 小程序
