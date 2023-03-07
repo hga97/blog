@@ -36,6 +36,7 @@
     - [function和class组件](react/principle/fn-and-class.md)
     - [patch](react/principle/patch.md)
     - [fiber架构](react/principle/fiber.md)
+    - [diff](react/principle/diff.md)
     - [react-mini-router](react/principle/react-mini-router.md)
   - [Mobx](react/MobX.md)
 - 小程序
