@@ -15,6 +15,7 @@
   - [call和apply](js/call-and-apply.md)
   - [bind](js/bind.md)
   - [new](js/new.md)
+  - [typeof和instanceof](js/typeof-instanceof.md)
 - typescript
   - [tsconfig](ts/tsconfig.md)
   - [基础入门](ts/base.md)
@@ -86,7 +87,7 @@
 <!-- 移动端适配方案（√）, 动画 -->
 
 <!-- 小程序 -->
-<!-- 顶部导航组件，吸顶组件（√），埋点，活动页组件，监控, CI/CD，abTest -->
+<!-- 顶部导航组件，吸顶组件（√），埋点，活动页组件，监控, CD，abTest -->
 
 <!-- react -->
 <!-- 组件库(√)，低代码平台，路由原理（√），mobx原理, swr, 合成事件 -->
@@ -98,11 +99,11 @@
 <!-- 缓存原理 -->
 
 <!-- 工程化 -->
-<!-- 调试，包分析（√），构建速度（√），npm私源 -->
+<!-- 调试，包分析（√），构建速度（√），npm私源，CD -->
 
 <!-- 优化 -->
 <!-- 虚拟列表 -->
 
 <!-- 自动化构建工具 -->
-<!-- gulp -->
+<!-- gulp（√） -->
 <!-- webpack 简易tinypack， loader（√）， plugin（√）， 热更（√）， tree shaking，esm -->
