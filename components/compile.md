@@ -338,16 +338,29 @@ function compileScripts(babelEnv, destDir) {
 
 ### 按需加载
 
+#### 手动按需引入
+
 在 package.json 中增加 sideEffects 属性，配合 ES module 达到 tree shaking 效果（将样式依赖文件标注为 side effects，避免被误删除）。
 
-#### 手动按需引入
+```json
+{
+  "sideEffects": [
+    "dist/*",
+    "esm/**/style/*",
+    "lib/**/style/*",
+    "*.less"
+  ],
+}
+```
 
 ```tsx
 import { Alert } from "h-ui";
 import "h-ui/esm/alert/style";
 ```
 
-#### babel-plugin-import（增加了使用成本）
+#### babel-plugin-import
+
+减少代码编写量, 但增加了使用成本。
 
 ```tsx
 import { Alert } from "h-ui";
