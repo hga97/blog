@@ -96,7 +96,7 @@
 <!-- 流 -->
 
 <!-- 浏览器 -->
-<!-- 缓存原理 -->
+<!-- 缓存原理，http，https，缓存 -->
 
 <!-- 工程化 -->
 <!-- 调试，包分析（√），构建速度（√），npm私源，CD -->
@@ -106,4 +106,4 @@
 
 <!-- 自动化构建工具 -->
 <!-- gulp（√） -->
-<!-- webpack 简易tinypack， loader（√）， plugin（√）， 热更（√）， tree shaking，esm -->
+<!-- webpack 简易tinypack， loader（√）， plugin（√）， 热更（√）， tree shaking，esm， babel -->

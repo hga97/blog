@@ -100,6 +100,9 @@ ECStack.pop();
 
 // javascript接着执行下面的代码，但是ECStack底层永远有个globalContext
 ```
+
+[在这里插入图片描述](https://img-blog.csdnimg.cn/84bb088404dd49b196d81c28ae29183b.png)
+
 ### 解答思考题
 
 解答[作用域](js/scope.md)的思考题
