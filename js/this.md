@@ -228,3 +228,18 @@ base value 正是 Environment Record，所以会调用 ImplicitThisValue(ref)
 查看规范 10.2.1.1.6，ImplicitThisValue 方法的介绍：该函数始终返回 undefined。
 
 所以最后 this 的值就是 undefined。
+
+### 总结
+
+#### 全局执行上下文中的 this
+
+window 对象
+
+#### 函数执行上下文中的 this
+
+- call、apply、bind：传入的对象
+- 通过对象调用，指向对象本身
+
+#### 通过构造函数中设置
+
+new 关键字构建一个新对象，并且构造函数中的 this 就是新对象本身。
