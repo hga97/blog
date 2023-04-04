@@ -5,6 +5,7 @@
 - js
   - [原型与原型链](js/prototype.md)
   - [继承](js/inherit.md)
+  - [typeof和instanceof](js/typeof-instanceof.md)
   - [作用域](js/scope.md)
   - [执行上下文栈](js/execute.md)
   - [变量对象](js/variable.md)
@@ -15,7 +16,7 @@
   - [call和apply](js/call-and-apply.md)
   - [bind](js/bind.md)
   - [new](js/new.md)
-  - [typeof和instanceof](js/typeof-instanceof.md)
+  - [事件循环](js/event-loop.md)
 - typescript
   - [tsconfig](ts/tsconfig.md)
   - [基础入门](ts/base.md)
