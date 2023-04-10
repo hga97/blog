@@ -17,6 +17,7 @@
   - [bind](js/bind.md)
   - [new](js/new.md)
   - [事件循环](js/event-loop.md)
+  - [promise](js/promise.md)
 - typescript
   - [tsconfig](ts/tsconfig.md)
   - [基础入门](ts/base.md)
