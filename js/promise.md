@@ -371,18 +371,190 @@ getUserId异步请求耗时1秒
 [Promise-2]:_resolve value= undefined
 ```
 
-- 构造 Promise-1 构造函数，立即执行 mockAjax
+- new Promise-1 实例，立即执行 mockAjax。
 - 调用 Promise-1 的 then 方法，注册 Promise-1 的 onFufilled 函数。
-- 新的 Promise 实例：Promise-2，立即执行 Promise-1 的\_handle 方法
-- 此时 Promise-1 还是 pending 状态
-- Promise-1 的\_handle 中就把注册的 Promise-1 的 onFufilled 和 Promise-2 的 resolve 保存在 Promise-1 内部的 callbacks
-- 至此当前线程执行结束。返回的是 Promise-2 的 Promise 实例。
-- 1s 后，异步请求返回，要改变 Promise-1 的状态和结果，执行 resolve(result)。
-- Promise-1 的值被改变，内容为异步请求返回的结果："getUserId 异步请求耗时 1s"
-- Promise-1 的状态变成 fulfilled
-- Promise-1 的 onFulfilled 被执行，打印出了"getUserId 异步请求耗时 1 秒"
-- 然后再调用 Promise-2.resolve
-- 改变 Promise-2 的值和状态，因为 Promise-1 的 onFulfilled 没有返回值，所以 Promise-2 的值为 undefined
+- new Promise-2 实例，立即执行 Promise-1 的\_handle 方法。
+- 此时 Promise-1 还是 pending 状态。
+- Promise-1 的\_handle 中就把注册的 Promise-1 的 onFufilled 和 Promise-2 的 resolve 保存在 Promise-1 内部的 callbacks。
+- 至此当前线程执行结束。返回的是 Promise-2 实例。
+- 1s 后，异步请求返回，要改变 Promise-1 的状态和结果，执行 resolve("getUserId 异步请求耗时 1 秒")。
+- Promise-1 的值被改变，内容为异步请求返回的结果："getUserId 异步请求耗时 1 秒"。
+- Promise-1 的状态变成 fulfilled。
+- Promise-1 的 onFulfilled 被执行，打印出了"getUserId 异步请求耗时 1 秒"。
+- 调用 Promise-2 的 resolve。
+- 改变 Promise-2 的值和状态，因为 Promise-1 的 onFulfilled 没有返回值，所以 Promise-2 的值为 undefined。
 
 #### 链式调用真正的意义
 
+1、return value
+
+执行当前 Promise 的 onFulfilled 时，返回值通过调用第二个 Promise 的 resolve 方法，传递给第二个 Promise，作为第二个 Promise 的值。于是我们考虑如下 Demo:
+
+```js
+new Promise(resolve => {
+    mockAjax('getUserId', 1, function (result) {
+        resolve(result);
+    })
+}).then(result => {
+    console.log(result);
+    //对result进行第一层加工
+    let exResult = '前缀:' + result;
+    return exResult;
+}).then(exResult => {
+    console.log(exResult);
+});
+
+[Promise-1]:constructor
+[Promise-1]:then
+[Promise-2]:constructor
+[Promise-1]:_handle state= pending
+[Promise-1]:_handle callbacks= [{…}]
+[Promise-2]:then
+[Promise-3]:constructor
+[Promise-2]:_handle state= pending
+[Promise-2]:_handle callbacks= [{…}]
+[Promise-1]:_resolve
+[Promise-1]:_resolve value= getUserId异步请求耗时1秒
+[Promise-1]:_handle state= fulfilled
+getUserId异步请求耗时1秒
+[Promise-2]:_resolve
+[Promise-2]:_resolve value= 前缀:getUserId异步请求耗时1秒
+[Promise-2]:_handle state= fulfilled
+前缀:getUserId异步请求耗时1秒
+[Promise-3]:_resolve
+[Promise-3]:_resolve value= undefined
+```
+
+- new Promise-1 实例，立即执行 mockAjax。
+- 调用 Promise-1 的 then 方法，注册 Promise-1 的 onFufilled 函数。
+- new Promise-2 实例，立即执行 Promise-1 的\_handle 方法。
+- 此时 Promise-1 还是 pending 状态。
+- Promise-1 的\_handle 中就把注册的 Promise-1 的 onFufilled 和 Promise-2 的 resolve 保存在 Promise-1 内部的 callbacks。
+- 返回 Promise-2 实例。
+- 调用 Promise-2 的 then 方法，注册 Promise-2 的 onFufilled 函数。
+- new Promise-3 实例，立即执行 Promise-2 的\_handle 方法。
+- 此时 Promise-2 还是 pending 状态。
+- Promise-2 的\_handle 中就把注册的 Promise-2 的 onFufilled 和 Promise-3 的 resolve 保存在 Promise-2 内部的 callbacks。
+- 至此当前线程执行结束。返回的是 Promise-3 实例。
+- 1s 后，异步请求返回，要改变 Promise-1 的状态和结果，执行 resolve("getUserId 异步请求耗时 1 秒")。
+- Promise-1 的值被改变，内容为异步请求返回的结果："getUserId 异步请求耗时 1 秒"。
+- Promise-1 的状态变成 fulfilled。
+- Promise-1 的 onFulfilled 被执行，打印出了"getUserId 异步请求耗时 1 秒"。
+- 调用 Promise-2 的 resolve("前缀:getUserId 异步请求耗时 1 秒")。
+- Promise-2 的值被改变，内容为异步请求返回的结果："前缀:getUserId 异步请求耗时 1 秒"。
+- Promise-2 的状态变成 fulfilled。
+- Promise-2 的 onFulfilled 被执行，打印出了"前缀:getUserId 异步请求耗时 1 秒"。
+- 调用 Promise-3 的 resolve()。
+- 改变 Promise-3 的值和状态，因为 Promise-2 的 onFulfilled 没有返回值，所以 Promise-3 的值为 undefined。
+
+2、return Promise
+
+如果是 Promise 实例，那么就把当前 Promise 实例的状态改变接口重新注册到 resolve 的值对应的 Promise 的 onFulfilled 中，
+也就是说当前 Promise 实例的状态要依赖 resolve 的值的 Promise 实例的状态。
+
+```js
+ _resolve(value) {
+
+    if (value && (typeof value === 'object' || typeof value === 'function')) {
+        var then = value.then;
+        if (typeof then === 'function') {
+            then.call(value, this._resolve.bind(this));
+            return;
+        }
+    }
+
+    this.state = 'fulfilled';//改变状态
+    this.value = value;//保存结果
+    this.callbacks.forEach(callback => this._handle(callback));
+}
+
+
+//Demo4
+const pUserId = new Promise(resolve => {
+  mockAjax('getUserId', 1, function (result) {
+    resolve(result);
+  })
+})
+const pUserName = new Promise(resolve => {
+  mockAjax('getUserName', 2, function (result) {
+    resolve(result);
+  })
+})
+
+pUserId.then(id => {
+  console.log(id)
+  return pUserName
+}).then(name => {
+  console.log(name)
+})
+
+[Promise-1]:constructor
+[Promise-2]:constructor
+[Promise-1]:then
+[Promise-3]:constructor
+[Promise-1]:_handle state= pending
+[Promise-1]:_handle callbacks= [{…}]
+[Promise-3]:then
+[Promise-4]:constructor
+[Promise-3]:_handle state= pending
+[Promise-3]:_handle callbacks= [{…}]
+[Promise-1]:_resolve
+[Promise-1]:_resolve value= getUserId异步请求耗时1秒
+[Promise-1]:_handle state= fulfilled
+getUserId异步请求耗时1秒
+[Promise-3]:_resolve
+[Promise-3]:_resolve value= Promise {callbacks: Array(0), name: 'Promise-2', state: 'pending', value: null}
+[Promise-2]:then
+[Promise-5]:constructor
+[Promise-2]:_handle state= pending
+[Promise-2]:_handle callbacks= [{…}]
+[Promise-2]:_resolve
+[Promise-2]:_resolve value= getUserName异步请求耗时2秒
+[Promise-2]:_handle state= fulfilled
+[Promise-3]:_resolve
+[Promise-3]:_resolve value= getUserName异步请求耗时2秒
+[Promise-3]:_handle state= fulfilled
+getUserName异步请求耗时2秒
+[Promise-4]:_resolve
+[Promise-4]:_resolve value= undefined
+[Promise-5]:_resolve
+[Promise-5]:_resolve value= undefined
+```
+
+- 赋值 pUserId，new Promise-1 实例，立即执行 mockAjax 函数。
+- 赋值 pUserName，new Promise-2 实例，立即执行 mockAjax 函数。
+- pUserId.then()，注册 Promise-1 的 onFufilled 函数。
+- new Promise-3 实例，立即执行 Promise-1 的\_handle 函数。
+- 此时 Promise-1 还是 pending 状态。
+- Promise-1 的\_handle 中就把注册的 Promise-1 的 onFufilled 和 Promise-3 的 resolve 保存在 Promise-1 内部的 callbacks。
+- 返回 Promise-3 实例。
+- pUserId.then().then() 执行 promise-3 的 then 方法, 注册 Promise-3 的 onFufilled 函数。
+- new Promise-4 实例，立即执行 Promise-3 的 \_handle 函数。
+- 此时 Promise-3 还是 pending 状态。
+- Promise-3 的\_handle 中就把注册的 Promise-3 的 onFufilled 和 Promise-4 的 resolve 保存在 Promise-3 内部的 callbacks。
+- 至此当前线程执行结束。返回 Promise-4 实例。
+- 1s 后，异步请求返回，要改变 Promise-1 的状态和结果，执行 resolve("getUserId 异步请求耗时 1 秒")。
+- Promise-1 的值被改变，内容为异步请求返回的结果："getUserId 异步请求耗时 1 秒"。
+- Promise-1 的状态变成 fulfilled。
+- Promise-1 的 onFulfilled 被执行，打印出了"getUserId 异步请求耗时 1 秒"。
+- 调用 Promise-3 的 resolve。
+- Promise-3 的值被改变，内容为 pUserName。
+- 执行 pUserName.then(), 注册 Promise-2 的 onFufilled 函数（是 Promise-3 的 resolve 函数）。
+- new Promise-5 实例，立即执行 Promise2 的 handle 函数。
+- 此时 Promise-2 还是 pending 状态。
+- Promise-2 的\_handle 中就把注册的 Promise-2 的 onFufilled 和 Promise-5 的 resolve 保存在 Promise-2 内部的 callbacks。
+<!-- - 返回 Promise-5 实例。 -->
+- 2s 后，异步请求返回，要改变 Promise-2 的状态和结果，执行 resolve("getUserName 异步请求耗时 2 秒")。
+- Promise-2 的值被改变，内容为异步请求返回的结果："getUserName 异步请求耗时 2 秒"。
+- Promise-2 的状态变成 fulfilled。
+- Promise-2 的 onFulfilled 被执行，也就是 Promise-3 的 resolve("getUserName 异步请求耗时 2 秒") 函数被执行。
+- Promise-3 的值被改变，内容为异步请求返回的结果："getUserName 异步请求耗时 2 秒"。
+- Promise-3 的状态变成 fulfilled。
+- Promise-3 的 onFulfilled 被执行，打印出了"getUserName 异步请求耗时 2 秒"。
+- 调用 Promise-4 的 resolve。
+- 改变 Promise-4 的值和状态，因为 Promise-3 的 onFulfilled 没有返回值，所以 Promise-4 的值为 undefined。
+- 调用 Promise-5.resolve。
+- 改变 Promise-5 的值和状态，因为 Promise-2 的 onFulfilled 没有返回值，所以 Promise-5 的值为 undefined。
+
+**Promise-3 的 resolve 函数，需要注册到 Promise-2 的 onFulfilled 上。**
+这样当 Promise-2 resolve 时，执行 onFullied 函数，间接调用 Priomise-3 的 resolve 函数，从而让 Promise3 的 onFuilled 函数得以执行。
