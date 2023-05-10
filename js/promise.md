@@ -558,3 +558,61 @@ getUserName异步请求耗时2秒
 
 **Promise-3 的 resolve 函数，需要注册到 Promise-2 的 onFulfilled 上。**
 这样当 Promise-2 resolve 时，执行 onFullied 函数，间接调用 Priomise-3 的 resolve 函数，从而让 Promise3 的 onFuilled 函数得以执行。
+
+### rejected
+
+promise 除了成功，还有失败，在失败时，要标记 promise 的状态位 rejected，并执行注册的 onReject。
+
+### Finally 方法
+
+不管 Promise 最后的状态如何，都要执行一些最后的操作。我们把这些操作放到 finally 中，也就是说 finally 注册的函数是与 Promise 的状态无关的，不依赖 Promise 的执行结果。
+
+### promise.all
+
+Promise.all()方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。
+
+```js
+const p = Promise.all([p1, p2, p3]);
+```
+
+最终 p 的状态由 p1、p2、p3 决定，分成两种情况。
+
+- 只有 p1、p2、p3 的状态都变成 fulfilled，p 的状态才会变成 fulfilled，此时 p1、p2、p3 的返回值组成一个数组，传递给 p 的回调函数。
+- 只要 p1、p2、p3 之中有一个被 rejected，p 的状态就变成 rejected，此时第一个被 reject 的实例的返回值，会传递给 p 的回调函数。
+
+### Promise.race
+
+Promise.race()方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例。
+
+```js
+const p = Promise.race([p1, p2, p3]);
+```
+
+- 只要 p1、p2、p3 之中有一个实例率先改变状态，p 的状态就跟着改变。那个率先改变的 Promise 实例的返回值，就传递给 p 的回调函数。
+
+**应用：接口请求超时**
+
+```js
+// 延迟函数
+function sleep(delay) {
+  return new Promise((_, reject) => {
+    setTimeout(() => reject("超时喽"), delay);
+  });
+}
+
+function timeoutPromise(requestFn, delay) {
+  return Promise.race([requestFn(), sleep(delay)]);
+}
+
+// 模拟请求
+function request() {
+  // 假设请求需要 1s
+  return new Promise((resolve) => {
+    setTimeout(() => resolve("成功喽"), 2000);
+  });
+}
+
+timeoutPromise(request, 1000)
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err)); // 超时喽
+```
