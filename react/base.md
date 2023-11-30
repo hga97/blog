@@ -27,8 +27,8 @@ return <div>{isLoggedIn ? <AdminPanel /> : <LoginForm />}</div>;
 ### 变量存放函数里面，函数没重新执行，缓存初始值
 
 ```tsx
-import { Upload, message } from 'antd';
-import { useState } from 'react';
+import { Upload, message } from "antd";
+import { useState } from "react";
 
 function MyComponent() {
   const [list, setList] = useState([]);
@@ -49,7 +49,6 @@ function MyComponent() {
     </div>
   );
 }
-
 ```
 
-**在beforeUpload函数中，无法直接访问到组件中最新的list状态。这是因为beforeUpload函数是在上传文件之前被调用的，而不是在组件渲染过程中。**
+**在 beforeUpload 函数中，无法直接访问到组件中最新的 list 状态。这是因为 beforeUpload 函数是在上传文件之前被调用的，而不是在组件渲染过程中。**
