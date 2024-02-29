@@ -155,6 +155,8 @@ yarn add cz-conventional-changelog --dev
 
 ### TypeScript
 
+tsconfig 和 tsc 只作用在类型检查，代码的编译只取决于 babel 的处理。
+
 ```zsh
 yarn add typescript --dev
 ```
